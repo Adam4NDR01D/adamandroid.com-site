@@ -88,6 +88,17 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .player .scrim{position:absolute;inset:0;background:
   linear-gradient(180deg,rgba(8,8,8,.05) 0%,rgba(8,8,8,.55) 100%)}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.tv-bars{position:absolute;inset:0;z-index:2;opacity:0;transition:opacity .4s ease;pointer-events:none;display:flex;flex-direction:column}
+.smpte-top{flex:0 0 66.7%;background:linear-gradient(90deg,#b3b3b3 0 14.2857%,#b3b300 14.2857% 28.571%,#00b3b3 28.571% 42.857%,#00b300 42.857% 57.143%,#b300b3 57.143% 71.428%,#b30000 71.428% 85.714%,#0000b3 85.714% 100%)}
+.smpte-mid{flex:0 0 8%;background:linear-gradient(90deg,#0000b3 0 14.2857%,#131313 14.2857% 28.571%,#b300b3 28.571% 42.857%,#131313 42.857% 57.143%,#00b3b3 57.143% 71.428%,#131313 71.428% 85.714%,#b3b3b3 85.714% 100%)}
+.smpte-bot{flex:1 1 auto;background:linear-gradient(90deg,#00214c 0 16.66%,#ffffff 16.66% 33.33%,#2d0057 33.33% 50%,#131313 50% 58.33%,#0a0a0a 58.33% 62.5%,#131313 62.5% 66.66%,#1c1c1c 66.66% 70.83%,#131313 70.83% 85.71%,#b3b3b3 85.71% 100%)}
+.tv-snow{position:absolute;inset:0;z-index:2;opacity:0;transition:opacity .35s ease;pointer-events:none;
+  image-rendering:pixelated;width:100%;height:100%}
+.player .scrim{z-index:3}
+.frame-tick{z-index:5}
+.play{z-index:6}
+.xhair{z-index:6}
+.overlay-meta,.under-meta{z-index:6}
 .play{
   position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   width:76px;height:76px;border-radius:50%;border:1px solid #FF9900;
@@ -291,6 +302,8 @@ button{font-family:inherit;cursor:pointer;color:inherit}
     <div>
       <div class="player" id="reelPlayer">
         <div class="poster" id="reelPoster"></div>
+        <div class="tv-bars" id="tvBars"><div class="smpte-top"></div><div class="smpte-mid"></div><div class="smpte-bot"></div></div>
+        <canvas class="tv-snow" id="tvSnow"></canvas>
         <div class="scrim"></div>
         <span class="frame-tick ft-tl"></span><span class="frame-tick ft-tr"></span>
         <span class="frame-tick ft-bl"></span><span class="frame-tick ft-br"></span>
@@ -488,6 +501,20 @@ function showView(v){
 document.getElementById('reelPoster').style.backgroundImage = `url('${CONFIG.reel.thumb}')`;
 document.getElementById('reelDur').textContent = CONFIG.reel.dur;
 document.getElementById('reelName').textContent = CONFIG.reel.name;
+/* ---- TV tune-in: color bars -> snow -> still ---- */
+(function tvIntro(){
+  const player=document.getElementById('reelPlayer');
+  const bars=document.getElementById('tvBars'), snow=document.getElementById('tvSnow');
+  if(!player||!snow) return;
+  const ctx=snow.getContext('2d'); let on=false, raf=0;
+  function size(){ snow.width=Math.max(2,Math.floor(player.clientWidth/3)); snow.height=Math.max(2,Math.floor(player.clientHeight/3)); }
+  function draw(){ if(!on) return; const w=snow.width,h=snow.height,img=ctx.createImageData(w,h),d=img.data;
+    for(let i=0;i<d.length;i+=4){ const v=(Math.random()*255)|0; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; } ctx.putImageData(img,0,0); raf=requestAnimationFrame(draw); }
+  size();
+  on=true; snow.style.opacity='1'; draw();                            /* 1) snow / static (3s) */
+  setTimeout(()=>{ on=false; cancelAnimationFrame(raf); snow.style.opacity='0'; bars.style.opacity='1'; }, 3000);  /* 2) SMPTE bars (5s) */
+  setTimeout(()=>{ bars.style.opacity='0'; }, 8000);                   /* 3) fade out to reel still */
+})();
 function playReel(){
   document.getElementById('reelPlayer').innerHTML =
     `<iframe allow="autoplay; fullscreen" allowfullscreen src="${embed(CONFIG.reel.id)}"></iframe>`;
