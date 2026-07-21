@@ -512,7 +512,7 @@ document.getElementById('reelName').textContent = CONFIG.reel.name;
     for(let i=0;i<d.length;i+=4){ const v=(Math.random()*255)|0; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; } ctx.putImageData(img,0,0); raf=requestAnimationFrame(draw); }
   size();
   on=true; snow.style.opacity='1'; draw();                            /* 1) snow / static (3s) */
-  setTimeout(()=>{ on=false; cancelAnimationFrame(raf); snow.style.opacity='0'; bars.style.opacity='1'; }, 3000);  /* 2) SMPTE bars (5s) */
+  setTimeout(()=>{ on=false; cancelAnimationFrame(raf); snow.style.transition='none'; snow.style.opacity='0'; bars.style.transition='none'; bars.style.opacity='1'; requestAnimationFrame(()=>requestAnimationFrame(()=>{ bars.style.transition=''; })); }, 3000);  /* 2) SMPTE bars (5s) */
   setTimeout(()=>{ bars.style.opacity='0'; }, 8000);                   /* 3) fade out to reel still */
 })();
 function playReel(){
