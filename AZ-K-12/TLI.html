@@ -227,6 +227,8 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .clip.add .thumb{display:flex;align-items:center;justify-content:center;border-style:dashed;background:var(--panel)}
 .clip.add .thumb span{font-family:var(--mono);font-size:11px;color:var(--txt-3);letter-spacing:.1em}
 .clip.add{cursor:default}
+.clip.locked{cursor:default}
+.clip.locked .ctitle{color:var(--txt-3)}
 .desc{margin-top:34px;display:grid;grid-template-columns:1.4fr .6fr;gap:34px}
 .desc p{color:var(--txt-2)}
 .credits{border-left:1px solid var(--line);padding-left:22px}
@@ -326,10 +328,9 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 
 <script>
 const PLAYLIST = [
-  { id:"264507332", title:"TLI Open · 2018", thumb:"https://vumbnail.com/264507332.jpg" },
-  { id:"218885733", title:"Eve R · 2017", thumb:"https://vumbnail.com/218885733.jpg" },
-  { id:"218828666", title:"Julie K · 2017", thumb:"https://vumbnail.com/218828666.jpg" },
-  { id:"340251789", title:"James K · 2019", thumb:"https://vumbnail.com/340251789.jpg" }
+  { id:"218885733", title:"Eve R", thumb:"https://vumbnail.com/218885733.jpg" },
+  { id:"218828666", title:"Julie K", thumb:"https://vumbnail.com/218828666.jpg" },
+  { id:"264507332", title:"TLI Open", thumb:"https://vumbnail.com/264507332.jpg", locked:true }
 ];
 const ACCENT='FF9900';
 function embed(id){ return `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0&badge=0&dnt=1&pip=0&color=${ACCENT}`; }
@@ -343,13 +344,13 @@ function shell(v){ return `<div class="poster" id="wPoster" style="background-im
   <button class="play" onclick="playCurrent()" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
   <div class="xhair"><span class="n"></span><span class="s"></span><span class="e"></span><span class="w"></span></div>`; }
 function playCurrent(){ document.getElementById('watchPlayer').innerHTML=`<iframe allow="autoplay; fullscreen" allowfullscreen src="${embed(PLAYLIST[cur].id)}"></iframe>`; }
-function selectVideo(i, play){ cur=i; const v=PLAYLIST[i]; const p=document.getElementById('watchPlayer');
+function selectVideo(i, play){ if(PLAYLIST[i]&&PLAYLIST[i].locked) return; cur=i; const v=PLAYLIST[i]; const p=document.getElementById('watchPlayer');
   p.innerHTML = play ? `<iframe allow="autoplay; fullscreen" allowfullscreen src="${embed(v.id)}"></iframe>` : shell(v);
   setMeta(i); document.querySelectorAll('#relStrip .clip').forEach((c,ci)=>c.classList.toggle('on',ci===i));
   window.scrollTo({top:0,behavior:'smooth'}); }
 function buildStrip(){ const strip=document.getElementById('relStrip'); strip.innerHTML='';
-  PLAYLIST.forEach((v,i)=>{ const el=document.createElement('div'); el.className='clip'+(i===cur?' on':'');
-    el.onclick=()=>selectVideo(i,true);
+  PLAYLIST.forEach((v,i)=>{ const el=document.createElement('div'); el.className='clip'+(i===cur?' on':'')+(v.locked?' locked':'');
+    if(!v.locked) el.onclick=()=>selectVideo(i,true);
     el.innerHTML=`<div class="thumb"><img src="${v.thumb}" alt="" loading="lazy"></div><div class="ctitle">${v.title}</div>`;
     strip.appendChild(el); });
   }
