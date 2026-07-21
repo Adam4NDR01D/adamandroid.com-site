@@ -367,14 +367,7 @@ function buildStrip(){ const strip=document.getElementById('relStrip'); strip.in
   document.getElementById('relCount').textContent=String(PLAYLIST.length).padStart(2,'0')+' CLIPS'; }
 document.getElementById('wPoster').style.backgroundImage=`url('${PLAYLIST[0].thumb}')`;
 setMeta(0); buildStrip();
-(function tvIntro(){ const player=document.getElementById('watchPlayer'), bars=document.getElementById('tvBars'), snow=document.getElementById('tvSnow');
-  if(!player||!snow) return; const ctx=snow.getContext('2d'); let on=false, raf=0;
-  function size(){ snow.width=Math.max(2,Math.floor(player.clientWidth/3)); snow.height=Math.max(2,Math.floor(player.clientHeight/3)); }
-  function draw(){ if(!on) return; const w=snow.width,h=snow.height,img=ctx.createImageData(w,h),d=img.data;
-    for(let i=0;i<d.length;i+=4){ const val=(Math.random()*255)|0; d[i]=d[i+1]=d[i+2]=val; d[i+3]=255; } ctx.putImageData(img,0,0); raf=requestAnimationFrame(draw); }
-  size(); on=true; snow.style.opacity='1'; draw();
-  setTimeout(()=>{ on=false; cancelAnimationFrame(raf); snow.style.opacity='0'; bars.style.opacity='1'; }, 3000);
-  setTimeout(()=>{ bars.style.opacity='0'; }, 8000); })();
+/* tune-in removed on this page (home page only) */
 (function tc(){ let s=0; setInterval(()=>{ s++; const hh=String(Math.floor(s/3600)%24).padStart(2,'0'),mm=String(Math.floor(s/60)%60).padStart(2,'0'),ss=String(s%60).padStart(2,'0'),ff=String(s%24).padStart(2,'0'); const el=document.getElementById('tc'); if(el) el.textContent=`${hh}:${mm}:${ss}:${ff}`; },1000); })();
 </script>
 </body>
