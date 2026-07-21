@@ -281,9 +281,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 
 <main class="watch"><div class="watch-in">
   <div class="page-head">
-    <span class="label">Campaign</span>
     <h1 class="az-title">AZ K-12 <span class="thin">·</span> <span class="acc">Poem</span></h1>
-    <p class="az-sub">A five-part series. Press play, or pick an episode below.</p>
   </div>
 
   <div class="player" id="watchPlayer">
@@ -336,7 +334,7 @@ const PLAYLIST = [
   { id:"245216666", title:"Ambition of America", thumb:"https://vumbnail.com/245216666.jpg" }
 ];
 const ACCENT='FF9900';
-function embed(id){ return `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0&badge=0&dnt=1&color=${ACCENT}`; }
+function embed(id){ return `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0&badge=0&dnt=1&pip=0&color=${ACCENT}`; }
 let cur=0;
 function setMeta(i){ const v=PLAYLIST[i]; document.getElementById('wTitle').textContent=v.title;
   document.getElementById('wPos').textContent=String(i+1).padStart(2,'0')+' / '+String(PLAYLIST.length).padStart(2,'0'); }
@@ -354,7 +352,7 @@ function selectVideo(i, play){ cur=i; const v=PLAYLIST[i]; const p=document.getE
 function buildStrip(){ const strip=document.getElementById('relStrip'); strip.innerHTML='';
   PLAYLIST.forEach((v,i)=>{ const el=document.createElement('div'); el.className='clip'+(i===cur?' on':'');
     el.onclick=()=>selectVideo(i,true);
-    el.innerHTML=`<div class="thumb"><img src="${v.thumb}" alt="" loading="lazy"><span class="cix">#${String(i+1).padStart(2,'0')}</span></div><div class="ctitle">${v.title}</div>`;
+    el.innerHTML=`<div class="thumb"><img src="${v.thumb}" alt="" loading="lazy"></div><div class="ctitle">${v.title}</div>`;
     strip.appendChild(el); });
   document.getElementById('relCount').textContent=String(PLAYLIST.length).padStart(2,'0')+' EPISODES'; }
 document.getElementById('wPoster').style.backgroundImage=`url('${PLAYLIST[0].thumb}')`;
