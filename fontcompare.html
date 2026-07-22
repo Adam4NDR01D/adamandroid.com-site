@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&family=Bricolage+Grotesque:wght@400;600;700&family=Familjen+Grotesk:wght@400;600;700&family=Sora:wght@400;600;700&family=Manrope:wght@400;600;700&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<title>AdamAndroid · Font Comparison</title>
+<style>
+:root{--acc:#FF9900;--acc2:#FF6600;--bg:#080808;--line:#1e1e1e;--mut:#8a8a8a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f2f2f2;font-family:'Space Grotesk',sans-serif;padding:34px 30px 80px}
+h1{font-size:15px;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);font-family:'Space Mono',monospace;font-weight:400;margin:0 0 4px}
+.sub{color:var(--mut);font-size:13px;margin:0 0 30px;max-width:720px;line-height:1.5}
+.card{border:1px solid var(--line);border-radius:12px;padding:22px 24px 26px;margin:0 0 16px;background:#0c0c0c}
+.card.cur{border-color:#3a2a00;background:#0f0c05}
+.card.pick{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset}
+.hd{display:flex;align-items:baseline;gap:12px;margin:0 0 14px;flex-wrap:wrap}
+.nm{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:20px;color:#000;font-weight:700}
+.tag.cur{background:#7a5a10;color:#ffd98a}
+.tag.old{background:#3a1010;color:#ff9d9d}
+.tag.pick{background:var(--acc)}
+.tag.alt{background:#222;color:#bbb}
+.lede{font-size:27px;line-height:1.32;font-weight:600;margin:0 0 12px;letter-spacing:-.01em}
+.body{font-size:16px;line-height:1.5;color:#cfcfcf;max-width:820px;margin:0 0 14px}
+.glyph{font-size:60px;font-weight:700;line-height:1;color:var(--acc);letter-spacing:.06em}
+.glyph .g{color:#fff;position:relative}
+.gnote{font-family:'Space Mono',monospace;font-size:10px;color:var(--mut);margin-left:14px;letter-spacing:.1em;text-transform:uppercase}
+.f-syne .lede,.f-syne .body,.f-syne .glyph{font-family:'Syne'}
+.f-sg .lede,.f-sg .body,.f-sg .glyph{font-family:'Space Grotesk'}
+.f-bri .lede,.f-bri .body,.f-bri .glyph{font-family:'Bricolage Grotesque'}
+.f-fam .lede,.f-fam .body,.f-fam .glyph{font-family:'Familjen Grotesk'}
+.f-sora .lede,.f-sora .body,.f-sora .glyph{font-family:'Sora'}
+.f-man .lede,.f-man .body,.f-man .glyph{font-family:'Manrope'}
+.f-dm .lede,.f-dm .body,.f-dm .glyph{font-family:'DM Sans'}
+</style></head><body>
+<h1>Adam&amp;Droid · Body Font Comparison</h1>
+<p class="sub">Same copy in every font. Watch the lowercase <b>g</b> (orange row on the right) · Syne is the one that reads chopped. Tell me a name and I'll set the whole site to it.</p>
+<div id="cards"></div>
+<script>
+const F=[
+ {c:'f-syne',n:'Syne',tag:'old',tc:'old',note:'← the chopped g you flagged'},
+ {c:'f-sg',n:'Space Grotesk',tag:'live now',tc:'cur',note:'currently on the site'},
+ {c:'f-bri',n:'Bricolage Grotesque',tag:'most character',tc:'alt',note:''},
+ {c:'f-fam',n:'Familjen Grotesk',tag:'friendly',tc:'alt',note:''},
+ {c:'f-sora',n:'Sora',tag:'clean',tc:'alt',note:''},
+ {c:'f-man',n:'Manrope',tag:'clean',tc:'alt',note:''},
+ {c:'f-dm',n:'DM Sans',tag:'clean',tc:'alt',note:''},
+];
+const LEDE='We speak camera. Moment.um captured · light, grain, and motion.';
+const BODY='Dodging damage, helping people, going again: a director of photography juggling rigs, gigs, and big imaginings. Every gorgeous frame, staged and shot on the ground.';
+document.getElementById('cards').innerHTML=F.map(f=>`
+<div class="card ${f.tc==='cur'?'cur':''} ${f.c}">
+ <div class="hd"><span class="nm">${f.n}</span><span class="tag ${f.tc}">${f.tag}</span><span class="gnote">${f.note||''}</span></div>
+ <div class="lede">${LEDE}</div>
+ <div class="body">${BODY}</div>
+ <div class="glyph">a g g y j p q <span class="g">going</span> &nbsp;<span class="gnote">g g g</span></div>
+</div>`).join('');
+</script>
+</body></html>
