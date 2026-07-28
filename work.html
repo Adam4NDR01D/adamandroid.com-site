@@ -511,12 +511,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 </div></footer>
 
 <script>
-(function tc(){ let s=0; setInterval(()=>{ s++;
-  const hh=String(Math.floor(s/3600)%24).padStart(2,'0'),
-        mm=String(Math.floor(s/60)%60).padStart(2,'0'),
-        ss=String(s%60).padStart(2,'0'),
-        ff=String(s%24).padStart(2,'0');
-  const el=document.getElementById('tc'); if(el) el.textContent=`${hh}:${mm}:${ss}:${ff}`; },1000); })();
+(function tc(){ let f=0; setInterval(()=>{ f=(f+1)%24; const d=new Date(); const hh=String(d.getHours()).padStart(2,'0'),mm=String(d.getMinutes()).padStart(2,'0'),ss=String(d.getSeconds()).padStart(2,'0'); const el=document.getElementById('tc'); if(el) el.textContent=`${hh}:${mm}:${ss}:${String(f).padStart(2,'0')}`; },1000/24); })();
 
 /* hover-to-play preview: muted looping Vimeo background player; click still navigates */
 (function hoverPlay(){
