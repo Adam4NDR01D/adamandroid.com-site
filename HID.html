@@ -261,8 +261,8 @@ button{font-family:inherit;cursor:pointer;color:inherit}
   .appbar-in{height:auto;flex-wrap:wrap;align-items:center;gap:8px;padding-top:8px;padding-bottom:0}
   .logo-mark{height:34px}
   .view{padding-top:16px}
-  .rec{margin-left:auto;font-size:9px;gap:5px;position:relative;top:6px}
-  .tc{font-size:10px;position:relative;top:3px}
+  .rec{margin-left:auto;font-size:9px;gap:5px}
+  .tc{font-size:10px}
   .nav{position:static;transform:none;order:5;flex-basis:100%;width:100%;height:auto;flex-wrap:wrap;justify-content:center;gap:0 5px;padding:8px 4px 9px;border-top:1px solid var(--line);margin-top:2px}
   .nav .tab{font-size:clamp(8px,2.65vw,10.5px);letter-spacing:0;white-space:nowrap}
   .nav .dot-sep{font-size:clamp(8px,2.65vw,10.5px)}
@@ -337,7 +337,7 @@ const PLAYLIST = [
   { id:"151669607", title:"George Mason University", thumb:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NDAnIGhlaWdodD0nMzYwJz48cmVjdCB3aWR0aD0nNjQwJyBoZWlnaHQ9JzM2MCcgZmlsbD0nIzBkMGQwZCcvPjxyZWN0IHdpZHRoPSc2NDAnIGhlaWdodD0nMzYwJyBmaWxsPSdub25lJy8+PGNpcmNsZSBjeD0nMzIwJyBjeT0nMTgwJyByPSczMycgZmlsbD0ncmdiYSg4LDgsOCwuNCknIHN0cm9rZT0nI0ZGOTkwMCcgc3Ryb2tlLXdpZHRoPScxLjQnIG9wYWNpdHk9Jy45Jy8+PHBhdGggZD0nTTMxMiAxNjQgTDM0MCAxODAgTDMxMiAxOTYgWicgZmlsbD0nI0ZGOTkwMCcgb3BhY2l0eT0nLjkyJy8+PC9zdmc+" }
 ];
 const ACCENT='FF9900';
-function embed(id){ return `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0&badge=0&dnt=1&pip=0&color=${ACCENT}`; }
+function embed(id){ return `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0&badge=0&vimeo_logo=0&pip=0&fullscreen=1&volume=1&dnt=1&color=${ACCENT}`; }
 let cur=0;
 function setMeta(i){ const v=PLAYLIST[i]; document.getElementById('wTitle').textContent=v.title;
   document.getElementById('wPos').textContent=String(i+1).padStart(2,'0')+' / '+String(PLAYLIST.length).padStart(2,'0'); }
