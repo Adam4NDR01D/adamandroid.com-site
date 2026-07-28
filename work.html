@@ -72,7 +72,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 .nav{position:absolute;left:50%;top:0;height:56px;transform:translateX(-50%);display:flex;align-items:center;gap:12px}
 .tab{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--txt-3);cursor:pointer;transition:.15s;white-space:nowrap}
 .tab.on{color:var(--acc)}
-.tab:hover{color:var(--txt)}
+.tab:hover{color:var(--acc)}
 .dot-sep{color:var(--txt-3);font-size:11px}
 
 /* ---------- layout ---------- */
@@ -266,8 +266,9 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 @media(max-width:820px){
   .appbar-in{height:auto;flex-wrap:wrap;align-items:center;gap:8px;padding-top:8px;padding-bottom:0}
   .logo-mark{height:34px}
-  .rec{margin-left:auto;font-size:9px;gap:5px}
-  .tc{font-size:10px}
+  .view{padding-top:16px}
+  .rec{margin-left:auto;font-size:9px;gap:5px;position:relative;top:6px}
+  .tc{font-size:10px;position:relative;top:3px}
   .nav{position:static;transform:none;order:5;flex-basis:100%;width:100%;height:auto;flex-wrap:wrap;justify-content:center;gap:0 5px;padding:8px 4px 9px;border-top:1px solid var(--line);margin-top:2px}
   .nav .tab{font-size:clamp(8px,2.65vw,10.5px);letter-spacing:0;white-space:nowrap}
   .nav .dot-sep{font-size:clamp(8px,2.65vw,10.5px)}
